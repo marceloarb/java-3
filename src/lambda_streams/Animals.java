@@ -1,6 +1,13 @@
 package lambda_streams;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+
 
 class Animals {
     //This class will be using streams.
@@ -19,6 +26,7 @@ class Animals {
         addAnimal("Platypus");
         addAnimal("frOg");
         addAnimal("lEOpArD");
+        
         //---------------------------------------
 
         capsFirst(animals,true);
@@ -39,12 +47,29 @@ class Animals {
     	//class field.  if the flag is set to 'true', mutate the animals and return the animals
     	//out of the function.  if it is false, create a copy of the animals, perform your stream
     	//operations on the copy, and return the copy of animals out of the function,
-    	//WITHOUT modifying the original animals array.  
-        return animals;
+    	//WITHOUT modifying the original animals array.
+    	if(mutate) {
+    		animaList.stream().map(str -> str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase()).collect(Collectors.toList());
+    		return animaList;
+    	}
+    	else {
+    		List<String> copy = animaList.stream().map(str -> str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase()).collect(Collectors.toList());
+    	return copy;
+    	}
+    	
+        
+    	
+    	
     }
 
     static String addAnimal(String animal) {
-        //add an animal to the animal list.
+        //add an animal to the animal list. 
+    	List<String> newAnimal = new ArrayList<>(animals);
+    	
+    	newAnimal.add(animal);
+    	animals = newAnimal;
+    	
+    	
         return animal;
     };
 
@@ -54,7 +79,14 @@ class Animals {
     	//Also, depending on the value of the boolean flag 'mutate',
     	//mutate the original animals list, or perform your stream operations on a 'copy'
     	//of the animals list.  return the list out of hte function in both cases.
-        return animaList;
+    	if(mutate) {
+    		animaList.stream().map(str -> str.substring(0, 1).toLowerCase() + str.substring(1).toUpperCase()).collect(Collectors.toList());
+    		return animaList;
+    	}
+    	else {
+    		List<String> copy = animaList.stream().map(str -> str.substring(0, 1).toLowerCase() + str.substring(1).toUpperCase()).collect(Collectors.toList());
+    	return copy;
+    	}
     }
 
     static List<String> flipAnimals(boolean mutate) {
@@ -65,7 +97,19 @@ class Animals {
     	//WITHOUT mutating the static animals array. return the flipped list in both cases.
 
         List<String> instructions = Arrays.asList("Flip","the","animals","list","."," ","Mutate","the","animals","only","if","flag","true");
-        return instructions;
+        
+        if(mutate) {
+        	Collections.reverse(animals);
+        	return animals;
+        }
+        else {
+        	List<String> newAnimal = new ArrayList<>(animals);
+        	Collections.reverse(newAnimal);
+        	return newAnimal;
+        	
+        }
+        
+        
     }
 
     static List<String> sortAnimals(boolean mutate) {
@@ -74,7 +118,19 @@ class Animals {
     	//if the mutate boolean is false, sort a 'copy' of the animals list,
     	//then return that list of sorted animals, WITHOUT mutating the static animals array.
     	//return the sorted list in both cases.
-    return animals;
+    	
+    	if(mutate) {
+    		animals.sort(Comparator.naturalOrder());
+    		return animals;
+    	}
+    	else {
+    		List<String> newList = new ArrayList<>(animals);
+    		newList.sort(Comparator.naturalOrder());
+    		
+    		return newList;
+    	}
+    	
+    
     }
 
 
