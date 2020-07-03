@@ -76,6 +76,18 @@ class Regex {
         //They should be printing out as the arrow images.
 
         String[] arrows = {"\u21FD", "\u26F7", "\u21FF", "\u21EF","\u21EC", "\u26F9","\u26FD","\u26D4","\u26A5","\u21FD","\u2190", "\u26A1","\u21BA","\u2196","\u2603","\u21FD"};
+        
+        Pattern pattern2 = Pattern.compile("\\..21");
+        System.out.println(Arrays.toString(arrows));
+        for (String code : arrows) {
+            System.out.println(code);
+            Matcher matcher2 = pattern2.matcher(code);
+            
+            if (!matcher2.find()) {
+            	System.out.println(code);
+            }
+                
+        }
     }
 }
 
